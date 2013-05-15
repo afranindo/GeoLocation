@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GeoViewController : UIViewController
+@interface GeoViewController : UIViewController<UITableViewDataSource, UITableViewDelegate> {
+    UITableView *_tableView;
+    UIActivityIndicatorView *_activityIndicatorView;
+    NSArray *_movies;
+}
+@property (nonatomic, retain) UITableView *tableView;
+@property (nonatomic, retain) UIActivityIndicatorView *activityIndicatorView;
+@property (nonatomic, retain) NSArray *photos;
+
 
 @end
