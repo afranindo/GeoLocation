@@ -13,6 +13,8 @@
     UIActivityIndicatorView *_activityIndicatorView;
     NSArray *_movies;
 }
+
+
 @property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, retain) NSArray *photos;

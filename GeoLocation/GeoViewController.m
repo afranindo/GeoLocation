@@ -49,6 +49,7 @@
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"Request Failed with Error: %@, %@", error, error.userInfo);
         [self.activityIndicatorView stopAnimating];
+        //make alert
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Request Failed with error"
                                                         message:[NSString stringWithFormat:@"%@",error.userInfo]
                                                        delegate:nil
@@ -82,7 +83,7 @@
     }
     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
     cell.textLabel.text=[NSString stringWithFormat:@"lat:%@, long:%@", [photo objectForKey:@"lat"], [photo objectForKey:@"lng"]];
-
+    
     cell.detailTextLabel.text = [photo objectForKey:@"updated_at"];
     
     
@@ -90,8 +91,22 @@
     //    NSURL *url = [[NSURL alloc] initWithString:[photo objectForKey:@"artworkUrl100"]];
     //    NSData *data = [NSData dataWithContentsOfURL:url];
     //    cell.imageView.image = [[UIImage alloc] initWithData:data];
+    //    [cell.imageView setImageWithURL:url placeholderImage:[UIImage imageNamed:@"placeholder"]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // *myBuddy = [buddies objectAtIndex:indexPath.row];
+    NSLog (@"Buddy selected: %@%d",@"tes",indexPath.row );
+     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"location"
+                                                    message:[NSString stringWithFormat:@"lat:%@, long:%@", [photo objectForKey:@"lat"], [photo objectForKey:@"lng"]]
+                                                   delegate:nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+
 }
 
 @end
