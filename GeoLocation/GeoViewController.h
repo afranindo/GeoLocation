@@ -15,9 +15,10 @@
 }
 
 
-@property (nonatomic, retain) UITableView *tableView;
+//@property (nonatomic, retain) UITableView *tableView;
 @property (nonatomic, retain) UIActivityIndicatorView *activityIndicatorView;
 @property (nonatomic, retain) NSArray *photos;
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
 
 
 @end

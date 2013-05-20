@@ -7,6 +7,7 @@
 //
 
 #import "GeoViewController.h"
+#import "MapViewController.h"
 #import <AFNetworking.h>
 
 @interface GeoViewController ()
@@ -21,12 +22,13 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     // Setting Up Table View
-    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
-    tableView.dataSource = self;
-    tableView.delegate = self;
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    tableView.hidden = YES;
-    [self.view addSubview:self.tableView];
+    //    tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
+    //    tableView.dataSource = self;
+    //    tableView.delegate = self;
+    //    tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    //    tableView.hidden = YES;
+    //    [self.view addSubview:self.tableView];
+    
     // Setting Up Activity Indicator View
     self.activityIndicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.activityIndicatorView.hidesWhenStopped = YES;
@@ -75,9 +77,9 @@
         return 0;
     }
 }
-- (UITableViewCell *)tableView:(UITableView *)tv cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    static NSString *cellID = @"Cell Identifier";
-    UITableViewCell *cell = [tv dequeueReusableCellWithIdentifier:cellID];
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *cellID = @"LocationCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
     }
@@ -99,14 +101,27 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // *myBuddy = [buddies objectAtIndex:indexPath.row];
     NSLog (@"Buddy selected: %@%d",@"tes",indexPath.row );
-     NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
+    NSDictionary *photo = [self.photos objectAtIndex:indexPath.row];
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"location"
                                                     message:[NSString stringWithFormat:@"lat:%@, long:%@", [photo objectForKey:@"lat"], [photo objectForKey:@"lng"]]
                                                    delegate:nil
                                           cancelButtonTitle:@"OK"
                                           otherButtonTitles:nil];
     [alert show];
+    
+}
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"showMap"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+       MapViewController *destViewController = segue.destinationViewController;
+//        destViewController.location = [[photos objectAtIndex:indexPath.row] objectForKey:@"lat"];
+        destViewController.latitude=[[photos objectAtIndex:indexPath.row] objectForKey:@"lat"];
+
+        destViewController.longitude=[[photos objectAtIndex:indexPath.row] objectForKey:@"lng"];
+
+
+    }
 }
 
 @end
