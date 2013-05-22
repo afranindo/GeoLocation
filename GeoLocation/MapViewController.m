@@ -61,8 +61,8 @@
     // Add an annotation
     MKPointAnnotation *point = [[MKPointAnnotation alloc] init];
     point.coordinate = zoomLocation;
-    point.title = @"zoom Location?";
-    point.subtitle = @"here";
+    point.title = @"location?";
+    point.subtitle = [NSString stringWithFormat:@"latitude->%@, longitude->%@",latitude,longitude];;
     
     [self.mapView addAnnotation:point];
     
@@ -71,11 +71,11 @@
     
     // 3
       // [mapView setRegion:viewRegion animated:YES];
-   //[self.mapView setRegion:[self.mapView regionThatFits:viewRegion] animated:YES];
+   [self.mapView setRegion:[self.mapView regionThatFits:viewRegion] animated:YES];
    
-    [mapView setCenterCoordinate:zoomLocation animated:YES];
+//    [mapView setCenterCoordinate:zoomLocation animated:YES];
     
-       
+    
          
 }
 
